@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>321</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ToPdf</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTextBrowser" name="FilePathText">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>171</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openFileButton">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>10</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>宋体</family>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>打开文件夹</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>265</width>
+      <height>265</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="word2pdfButton">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>15</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>word2pdf</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="excel2pdfButton">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>15</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>excel2pdf</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="textBrowser"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>关闭</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>321</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>221</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>275</x>
+     <y>66</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
