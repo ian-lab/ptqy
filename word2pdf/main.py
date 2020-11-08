@@ -23,6 +23,7 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
 
     def openFileButton_clicked(self):
         global directory
+        self.progressBar.setValue(0)
         directory = QFileDialog.getExistingDirectory(self, '选择文件夹', './')
         self.FilePathText.setPlainText(directory)
         directory = directory.replace('/', '\\')
@@ -50,17 +51,14 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
     def word2pdfButton_clicked(self):
         self.word2pdfButton.setEnabled(False)
         self.excel2pdfButton.setEnabled(False)
-
-        self.textBrowser.setPlainText('开始转换')
+        self.progressBar.setValue(0)
         QApplication.processEvents()
-
         for dirs, subdirs, files in os.walk(directory):
             for name in files:
                 global num_file
                 if re.search('\.(doc|docx)', name):
                     num_file += 1
-        self.textBrowser.append(("共 %d 个Word文件" % (num_file)))
-
+        self.textBrowser.setPlainText(("共找到 %d 个Word文件，转换中..." % (num_file)))
         for dirs, subdirs, files in os.walk(directory):
             for name in files:
                 if re.search('\.(doc|docx)', name):
@@ -68,13 +66,14 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
                     count = count + 1
                     self.textBrowser.append(
                         ("第 %d / %d 个文件..." % (count, num_file)))
-                    self.textBrowser.append(name)
                     self.textBrowser.moveCursor(
                         self.textBrowser.textCursor().End)  # 文本框显示到底部
                     QApplication.processEvents()
                     self.word2pdf(dirs+'\\'+name, dirs+'\\' +
                                   re.subn('(docx|doc)', 'pdf', name)[0])
+                    self.progressBar.setValue(count / num_file * 100)
         self.textBrowser.append('转换完成')
+        self.progressBar.setValue(100)
         count = 0
         num_file = 0
         self.word2pdfButton.setEnabled(True)
@@ -84,17 +83,14 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
     def excel2pdfButton_clicked(self):
         self.word2pdfButton.setEnabled(False)
         self.excel2pdfButton.setEnabled(False)
-
-        self.textBrowser.setPlainText('开始转换')
+        self.progressBar.setValue(0)
         QApplication.processEvents()
-
         for dirs, subdirs, files in os.walk(directory):
             for name in files:
                 global num_file
                 if re.search('\.(xlsx|xls)', name):
                     num_file += 1
-        self.textBrowser.append(("共 %d 个Excel文件" % (num_file)))
-
+        self.textBrowser.setPlainText(("共找到 %d 个Excel文件，转换中..." % (num_file)))
         for dirs, subdirs, files in os.walk(directory):
             for name in files:
                 if re.search('\.(xlsx|xls)', name):
@@ -102,15 +98,14 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
                     count = count + 1
                     self.textBrowser.append(
                         ("第 %d / %d 个文件..." % (count, num_file)))
-                    self.textBrowser.append(name)
                     self.textBrowser.moveCursor(
                         self.textBrowser.textCursor().End)  # 文本框显示到底部
                     QApplication.processEvents()
-
                     self.excel2pdf(dirs+'\\'+name, dirs+'\\' +
                                    re.subn('(xlsx|xls)', 'pdf', name)[0])
-
+                    self.progressBar.setValue(count/num_file*100)
         self.textBrowser.append('转换完成')
+        self.progressBar.setValue(100)
         count = 0
         num_file = 0
         self.word2pdfButton.setEnabled(True)

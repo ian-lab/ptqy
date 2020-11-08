@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>370</height>
+    <width>292</width>
+    <height>263</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QTextBrowser" name="FilePathText">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>10</y>
       <width>171</width>
       <height>41</height>
@@ -33,7 +33,7 @@
    <widget class="QPushButton" name="openFileButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>180</x>
       <y>10</y>
       <width>101</width>
       <height>41</height>
@@ -49,65 +49,90 @@
      <string>打开文件夹</string>
     </property>
    </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>271</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>210</y>
+      <width>75</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>宋体</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>关闭</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>271</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+   </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>60</y>
-      <width>265</width>
-      <height>265</height>
+      <width>271</width>
+      <height>31</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="word2pdfButton">
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <pointsize>15</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>word2pdf</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="excel2pdfButton">
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <pointsize>15</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>excel2pdf</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QTextBrowser" name="textBrowser"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="word2pdfButton">
        <property name="font">
         <font>
-         <family>宋体</family>
-         <pointsize>14</pointsize>
+         <family>Times New Roman</family>
+         <pointsize>15</pointsize>
          <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
        <property name="text">
-        <string>关闭</string>
+        <string>word2pdf</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="excel2pdfButton">
+       <property name="font">
+        <font>
+         <family>Times New Roman</family>
+         <pointsize>15</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>excel2pdf</string>
        </property>
       </widget>
      </item>
@@ -119,7 +144,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>321</width>
+     <width>292</width>
      <height>23</height>
     </rect>
    </property>
