@@ -89,6 +89,7 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
                         self.word2pdf(dirs+'\\'+name, dirs+'\\' +
                                       re.subn('(docx|doc)', 'pdf', name)[0])
                         self.progressBar.setValue(count / num_file * 100)
+
             self.textBrowser.append('转换完成')
             self.progressBar.setValue(100)
         count = 0
