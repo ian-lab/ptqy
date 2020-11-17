@@ -32,11 +32,16 @@ class trans(QMainWindow, Ui_MainWindow):  # 继承自父类QtWidgets.QMainWindow
     def openFileButton_clicked(self):
         global directory
         self.progressBar.setValue(0)
+        last_directory = directory.replace('\\', '/')
         directory = QFileDialog.getExistingDirectory(self, '选择文件夹', './')
+        if directory == "":
+            directory = last_directory
+
         self.FilePathText.setPlainText(directory)
         directory = directory.replace('/', '\\')
-
+        # self.FilePathText.append(directory)
     # word转pdf
+
     def word2pdf(self, wordPath, pdfPath):
         word = gencache.EnsureDispatch('Word.Application')
         doc = word.Documents.Open(wordPath, ReadOnly=1)
