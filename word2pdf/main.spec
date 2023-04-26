@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['D:\\program\\pyqt5\\word2pdf'],
+             pathex=['E:\\3study_file\\program\\pyqt5\\word2pdf'],
              binaries=[],
              datas=[],
              hiddenimports=[],
