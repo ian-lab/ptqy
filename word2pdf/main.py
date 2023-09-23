@@ -32,21 +32,23 @@ class trans(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
         self.progressBar.setValue(0)
+       
         directory = os.getcwd()
         directory = directory.replace('\\', '/')
         self.FilePathText.setPlainText(directory)
         self.OutputFilePathText.setPlainText(directory)
         directory = directory.replace('/', '\\')
 
-        self.word2pdfButton.clicked.connect(self.word2pdfButton_clicked)
-        self.excel2pdfButton.clicked.connect(self.excel2pdfButton_clicked)
-        self.img2wordButton.clicked.connect(self.img2wordButton_clicked)
-        self.img2tableButton.clicked.connect(self.img2tableButton_clicked)
-        self.openFileButton.clicked.connect(
-            self.openFileButton_clicked)  # 输入文件夹
-        self.openOutputFileButton.clicked.connect(
-            self.openOutputFileButton_clicked)  # 输出文件夹
-
+        self.word2pdfButton.clicked.connect(self.word2pdfButton_clicked)              # word2pdf
+        self.excel2pdfButton.clicked.connect(self.excel2pdfButton_clicked)            # excel2pdf
+        # self.img2wordButton.clicked.connect(self.img2wordButton_clicked)
+        # self.img2tableButton.clicked.connect(self.img2tableButton_clicked) 
+        self.openFileButton.clicked.connect(self.openFileButton_clicked)              # 输入文件夹
+        # self.openOutputFileButton.clicked.connect(self.openOutputFileButton_clicked)  # 输出文件夹
+       
+        self.img2wordButton.setEnabled(False)
+        self.img2tableButton.setEnabled(False)
+        self.openOutputFileButton.setEnabled(False)
     # 选择输入文件夹
     def openFileButton_clicked(self):
         global directory
@@ -70,8 +72,7 @@ class trans(QMainWindow, Ui_MainWindow):
         self.progressBar.setValue(0)
         last_directory = Output_directory.replace('\\', '/')
 
-        Output_directory = QFileDialog.getExistingDirectory(
-            self, '选择输出文件夹', './')
+        Output_directory = QFileDialog.getExistingDirectory(self, '选择输出文件夹', './')
         if Output_directory == "":
             Output_directory = last_directory
 
@@ -97,8 +98,10 @@ class trans(QMainWindow, Ui_MainWindow):
         xlApp.DisplayAlerts = False
         # xlApp = DispatchEx('Excel.Application')
         xls = xlApp.Workbooks.Open(excelPath, ReadOnly=1)
-        xls.ExportAsFixedFormat(
-            0, pdfPath, Quality=constants.xlQualityStandard, IgnorePrintAreas=False)
+        xls.ExportAsFixedFormat(0, 
+                                pdfPath, 
+                                Quality=constants.xlQualityStandard, 
+                                IgnorePrintAreas=False)
         xls.Close(False)
         xlApp.Quit()
 
@@ -123,7 +126,7 @@ class trans(QMainWindow, Ui_MainWindow):
             self.textBrowser.setPlainText('未找到Word文件，请确认文件路径')
         else:
             self.textBrowser.setPlainText(
-                ("共找到 %d 个Word文件，开始转换" % (num_file)))
+                ("共找到 %d 个 Word 文件，开始转换" % (num_file)))
             for dirs, subdirs, files in os.walk(directory):
                 for name in files:
                     if re.search(r'\.(doc|docx)', name):
@@ -132,23 +135,21 @@ class trans(QMainWindow, Ui_MainWindow):
                         else:
                             global count
                             count = count + 1
-                            self.textBrowser.append(
-                                ("第 %d / %d 个文件转换中..." % (count, num_file)))
-                            self.textBrowser.moveCursor(
-                                self.textBrowser.textCursor().End)  # 文本框显示到底部
+                            full_name = os.path.join(dirs, name)
+                            self.textBrowser.append(("第 %d / %d 个文件 %s 转换中..." % (count, num_file, full_name)))
+                            self.textBrowser.moveCursor(self.textBrowser.textCursor().End)  # 文本框显示到底部
                             QApplication.processEvents()
-                            self.word2pdf(dirs+'\\'+name, dirs+'\\' +
-                                          re.subn('(docx|doc)', 'pdf', name)[0])
-                            self.progressBar.setValue(count / num_file * 100)
-            self.textBrowser.append('转换完成')
+                            self.word2pdf(dirs+'\\'+name, dirs+'\\' + re.subn('(docx|doc)', 'pdf', name)[0])
+                            self.progressBar.setValue( int(count / num_file * 100))
+            self.textBrowser.append('所有文件转换完成')
             self.progressBar.setValue(100)
         count = 0
         num_file = 0
 
         self.word2pdfButton.setEnabled(True)
         self.excel2pdfButton.setEnabled(True)
-        self.img2wordButton.setEnabled(True)
-        self.img2tableButton.setEnabled(True)
+        # self.img2wordButton.setEnabled(True)
+        # self.img2tableButton.setEnabled(True)
 
     # excel转pdf按钮
     def excel2pdfButton_clicked(self):
@@ -171,7 +172,7 @@ class trans(QMainWindow, Ui_MainWindow):
             self.textBrowser.setPlainText('未找到Excel文件，请确认文件路径')
         else:
             self.textBrowser.setPlainText(
-                ("共找到 %d 个Excel文件，开始转换" % (num_file)))
+                ("共找到 %d 个 Excel 文件，开始转换" % (num_file)))
             for dirs, subdirs, files in os.walk(directory):
                 for name in files:
                     if re.search(r'\.(xlsx|xls)', name):
@@ -180,28 +181,26 @@ class trans(QMainWindow, Ui_MainWindow):
                         else:
                             global count
                             count = count + 1
-                            time1 = datetime.datetime.now()  # 获取当前时间
-                            self.textBrowser.append(
-                                ("第 %d / %d 个文件转换中..." % (count, num_file)))
-                            self.textBrowser.moveCursor(
-                                self.textBrowser.textCursor().End)  # 文本框显示到底部
+                            # time1 = datetime.datetime.now()  # 获取当前时间
+                            full_name = os.path.join(dirs, name)
+                            self.textBrowser.append(("第 %d / %d 个文件 %s 转换中..." % (count, num_file, full_name)))
+                            self.textBrowser.moveCursor(self.textBrowser.textCursor().End)  # 文本框显示到底部
                             QApplication.processEvents()
-                            self.excel2pdf(dirs+'\\'+name, dirs+'\\' +
-                                           re.subn('(xlsx|xls)', 'pdf', name)[0])
-                            self.progressBar.setValue(count / num_file * 100)
-                            time2 = datetime.datetime.now()  # 获取当前时间
-                            time = time2 - time1 + \
-                                datetime.timedelta(seconds=10)
-                            self.textBrowser.append(
-                                "转换完成,耗时%d秒" % time.seconds)
+                            self.excel2pdf(dirs + '\\' + name, dirs + '\\' + re.subn('(xlsx|xls)', 'pdf', name)[0])
+                            self.progressBar.setValue( int(count / num_file * 100) )
+                            # time2 = datetime.datetime.now()  # 获取当前时间
+                            # time = time2 - time1 + \
+                            #     datetime.timedelta(seconds=10)
+                            # self.textBrowser.append(
+                            #     "转换完成,耗时%d秒" % time.seconds)
             self.textBrowser.append('所有文件转换完成')
             self.progressBar.setValue(100)
         count = 0
         num_file = 0
         self.word2pdfButton.setEnabled(True)
         self.excel2pdfButton.setEnabled(True)
-        self.img2wordButton.setEnabled(True)
-        self.img2tableButton.setEnabled(True)
+        # self.img2wordButton.setEnabled(True)
+        # self.img2tableButton.setEnabled(True)
 
     # 图片文字识别按钮
     def img2wordButton_clicked(self):
@@ -262,8 +261,8 @@ class trans(QMainWindow, Ui_MainWindow):
         
         self.word2pdfButton.setEnabled(True)
         self.excel2pdfButton.setEnabled(True)
-        self.img2wordButton.setEnabled(True)
-        self.img2tableButton.setEnabled(True)
+        # self.img2wordButton.setEnabled(True)
+        # self.img2tableButton.setEnabled(True)
 
     # 图片文字表格按钮
     def img2tableButton_clicked(self):
@@ -328,8 +327,8 @@ class trans(QMainWindow, Ui_MainWindow):
         
         self.word2pdfButton.setEnabled(True)
         self.excel2pdfButton.setEnabled(True)
-        self.img2wordButton.setEnabled(True)
-        self.img2tableButton.setEnabled(True)
+        # self.img2wordButton.setEnabled(True)
+        # self.img2tableButton.setEnabled(True)
 
 
 if __name__ == "__main__":
